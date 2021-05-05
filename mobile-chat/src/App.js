@@ -1,12 +1,12 @@
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Login from "./components/Login";
+import ChatRoom from "./components/ChatRoom";
 import { auth } from "./config";
 import './App.css';
-import Login from ".components/Login";
-import ChatRoom from ".components/ChatRoom";
 
 function App() {
 
-  const user = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   return (
     <div className="App">
