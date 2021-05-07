@@ -7,12 +7,13 @@ const ChatRoom = ({ currentRoom }) => {
 
     const messagesRef = db.collection("messages");
 
-    const [messages] = useCollectionData(query, { idField: "id" });
-
     const query = messagesRef 
         .where("room", "==", currentRoom)
-        .orderBy("createdAt")
-        .limit(20);
+      //  .orderBy("createdAt")
+      //  .limit(20);
+
+    const [messages] = useCollectionData(query, { idField: "id" });
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,7 +27,8 @@ const ChatRoom = ({ currentRoom }) => {
                 room: currentRoom,
             });
             setMessage("");
-    }
+    };
+    console.log({ messages })
 
     return (
         <div className="messages">
