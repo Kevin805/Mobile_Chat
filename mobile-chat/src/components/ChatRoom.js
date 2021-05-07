@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { db, auth, firebaseRef } from "../config";
+import { useCollectionData } from "react-firebase-hooks/firestore"
 
 const ChatRoom = ({ currentRoom }) => {
     const [message, setMessage] = useState("");
 
     const messagesRef = db.collection("messages");
+
+    const [messages] = useCollectionData(query, { idField: "id" });
+
+    const query = messagesRef 
+        .where("room", "==", currentRoom)
+        .orderBy("createdAt")
+        .limit(20);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
