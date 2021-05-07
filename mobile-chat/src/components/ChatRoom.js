@@ -6,7 +6,8 @@ const ChatRoom = ({ currentRoom }) => {
 
     const messagesRef = db.collection("messages");
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         const { uid, photoURL } = auth.currentUser;
         const createdAt = firebaseRef.firestore.FieldValue.serverTimestamp();
             await messagesRef.add({
