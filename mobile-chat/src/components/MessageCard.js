@@ -8,5 +8,30 @@ const MessageCard = ({ message, handleDelete }) => {
     const toggleCard = () => {
         setShowActionButtons(!showActionButtons);
     };
-
-}
+return (
+    <>
+        <div className={`message ${messageClass}`}>
+            <div className="contents" onClick={toggleCard}>
+                <div className="user-name">
+                    <p> Kevin Johnson </p>
+                </div>
+                <div className="photo">
+                    <img
+                        src={photoURL || `${process.env.PUBLIC_URL}/avatar.png`}
+                        alt="avatar"
+                    />
+                </div>
+                <div className="text">
+                    <p>{text}</p>
+                </div>
+                <div
+                    style={{ display: showActionButtons ? "block" : "none" }}
+                    className="actions"
+                >
+                <button onClick={() => handleDelete(createdAt, id)}>Delete</button>
+                </div>
+            </div>
+        </div>
+    </>
+  );
+};
