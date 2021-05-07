@@ -17,6 +17,7 @@ const ChatRoom = ({ currentRoom }) => {
                 text: message,
                 room: currentRoom,
             });
+            setMessage("");
     }
 
     return (
