@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { auth } from "../config";
 
-const MessageCard = ({ message, handleDelete }) => {
+const MessageCard = ({ message }) => {
     const { id, text, uid, createdAt, photoURL } = message;
     const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
     const [showActionButtons, setShowActionButtons] = useState(false);
@@ -17,19 +17,17 @@ return (
                 </div>
                 <div className="photo">
                     <img
-                        src={photoURL || `${process.env.PUBLIC_URL}/avatar.png`}
-                        alt="avatar"
-                    />
+                        src={photoURL} alt="avatar" />
                 </div>
                 <div className="text">
                     <p>{text}</p>
                 </div>
-                <div
+                {/* <div
                     style={{ display: showActionButtons ? "block" : "none" }}
                     className="actions"
                 >
                 <button onClick={() => handleDelete(createdAt, id)}>Delete</button>
-                </div>
+                </div> */}
             </div>
         </div>
     </>
