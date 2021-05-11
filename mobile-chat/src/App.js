@@ -9,12 +9,4 @@ function App() {
   const [currentRoom, setCurrentRoom] = useState("General");
   const [user] = useAuthState(auth);
 
-  return (
-    <div className="App">
-      <div>
-        {user ? <ChatRoom currentRoom={currentRoom} /> : <Login />}</div>
-    </div>
-  );
-}
-
-export default App;
+ 
