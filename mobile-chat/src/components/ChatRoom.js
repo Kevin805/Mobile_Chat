@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { db, auth, firebaseRef } from "../config";
 import { useCollectionData } from "react-firebase-hooks/firestore"
-import MessageCard from './MessageCard'
+import  MessageCard from './MessageCard'
 
 const ChatRoom = ({ currentRoom }) => {
     const [message, setMessage] = useState("");
@@ -38,7 +38,7 @@ const ChatRoom = ({ currentRoom }) => {
                  <MessageCard
                   message={message}
                   key={message.id}
-                  handleDelete={handleDelete} 
+                  //handleDelete={handleDelete} 
                 />
               ))}
             <form onSubmit={handleSubmit}>
