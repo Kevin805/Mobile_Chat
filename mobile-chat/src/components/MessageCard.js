@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { auth } from "../config";
 
 const MessageCard = ({ message }) => {
+    const { displayName } = auth.currentUser
     const { id, text, uid, createdAt, photoURL } = message;
     const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
     const [showActionButtons, setShowActionButtons] = useState(false);
