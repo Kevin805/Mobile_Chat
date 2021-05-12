@@ -29,7 +29,10 @@ const ChatRoom = ({ currentRoom }) => {
             });
             setMessage("");
     };
-    console.log({ messages })
+    
+    const handleDelete = ( createdAt, id ) => {
+        db.collection("messages").doc(id).delete();
+    };
 
     return (
         <div className="messages">
@@ -38,7 +41,7 @@ const ChatRoom = ({ currentRoom }) => {
                  <MessageCard
                   message={message}
                   key={message.id}
-                  //handleDelete={handleDelete} 
+                  handleDelete={handleDelete} 
                 />
               ))}
             <form onSubmit={handleSubmit}>
