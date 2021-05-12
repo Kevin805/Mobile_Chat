@@ -6,7 +6,7 @@ auth.currentUser && (
         className="logout"
         onClick={() => {
             auth.signOut();
-            setShowSideBar(false);
+          //  setShowSideBar(false);
         }}
     >
       Signout
