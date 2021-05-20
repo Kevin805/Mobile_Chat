@@ -25,12 +25,12 @@ const NavBar = ({ user, currentRoom, setCurrentRoom }) => {
             }}
           >
             <img
-              src="https://github.com/DwinaTech/public-images/blob/main/menu-bars.png?raw=true"
+              //src= Need image
               alt="menu"
               style={{ opacity: showListMenu ? 0 : 1 }}
             />
             <img
-              src="https://github.com/DwinaTech/public-images/blob/main/cross-menu-icon.png?raw=true"
+             // src= Need image
               alt="menu-cross"
               style={{ opacity: showListMenu ? 1 : 0 }}
             />
