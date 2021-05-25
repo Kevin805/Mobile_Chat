@@ -24,16 +24,6 @@ const NavBar = ({ user, currentRoom, setCurrentRoom }) => {
               setShowListMenu(!showListMenu);
             }}
           >
-            <img
-              //src= Need image
-              alt="menu"
-              style={{ opacity: showListMenu ? 0 : 1 }}
-            />
-            <img
-             // src= Need image
-              alt="menu-cross"
-              style={{ opacity: showListMenu ? 1 : 0 }}
-            />
           </button>
           <ul
             className="list-menu"
@@ -56,4 +46,4 @@ const NavBar = ({ user, currentRoom, setCurrentRoom }) => {
   );
 };
 
-export default NavBar; 
+export default NavBar;

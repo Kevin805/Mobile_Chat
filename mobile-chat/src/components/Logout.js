@@ -1,16 +1,16 @@
 import { auth } from "../config";
 
-const SignOut = ({ setShowSideBar }) =>
-auth.currentUser && (
+const SignOut = ({ setShowListMenu }) =>
+  auth.currentUser && (
     <button
-        className="logout"
-        onClick={() => {
-            auth.signOut();
-          //  setShowSideBar(false);
-        }}
+      className="logout"
+      onClick={() => {
+        auth.signOut();
+        setShowListMenu(false);
+      }}
     >
-      Signout
+      Sign Out
     </button>
-);
+  );
 
-export default SignOut
+export default SignOut;

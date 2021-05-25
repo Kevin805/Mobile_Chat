@@ -1,61 +1,65 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { db, auth, firebaseRef } from "../config";
-import { useCollectionData } from "react-firebase-hooks/firestore"
-import  MessageCard from './MessageCard'
-import { computeHeadingLevel } from "@testing-library/dom";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import MessageCard from "./MessageCard";
 
 const ChatRoom = ({ currentRoom }) => {
-    const [message, setMessage] = useState("");
+  const customRef = useRef();
+  const messagesRef = db.collection("messages");
+  const query = messagesRef
+    .where("room", "==", currentRoom)
+    .orderBy("createdAt")
+    .limit(20);
 
-    const messagesRef = db.collection("messages");
+  const [messages] = useCollectionData(query, { idField: "id" });
+  const [message, setMessage] = useState("");
 
-    const query = messagesRef 
-        .where("room", "==", currentRoom)
-      //  .orderBy("createdAt")
-      //  .limit(20);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const createdAt = firebaseRef.firestore.FieldValue.serverTimestamp();
+    const { uid, photoURL, displayName } = auth.currentUser;
+    await messagesRef.add({
+      uid,
+      photoURL,
+      createdAt,
+      text: message,
+      room: currentRoom,
+      userName: displayName,
+    });
 
-    const [messages] = useCollectionData(query, { idField: "id" });
+    setMessage("");
+    customRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const { uid, photoURL } = auth.currentUser;
-        const createdAt = firebaseRef.firestore.FieldValue.serverTimestamp();
-            await messagesRef.add({
-                uid,
-                photoURL,
-                createdAt,
-                text: message,
-                room: currentRoom,
-            });
-            setMessage("");
-    };
-    
-    const handleDelete = ( createdAt, id ) => {
-        db.collection("messages").doc(id).delete();
-    };
-
-    return (
-        <div className="messages">
-            {messages &&
-              messages.map((message) => (
-                 <MessageCard
-                  message={message}
-                  key={message.id}
-                  handleDelete={handleDelete} 
-                />
-              ))}
-            <form onSubmit={handleSubmit}>
-             <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Enter message"
+  const handleDelete = (createdAt, id) => {
+    db.collection("messages").doc(id).delete();
+  };
+  return (
+    <>
+      <div className="messages">
+        {messages &&
+          messages.map((message) => (
+            <MessageCard
+              message={message}
+              key={message.id}
+              handleDelete={handleDelete}
             />
-                <button type="submit" disabled={!message}>Send</button>
-            </form>
-        </div>
-    );
+          ))}
+        <span ref={customRef}></span>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <textarea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Enter message"
+        />
+        <button type="submit" disabled={!message}>
+          Send
+        </button>
+      </form>
+    </>
+  );
 };
 
-export default ChatRoom
-
+export default ChatRoom;
