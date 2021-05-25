@@ -2,6 +2,7 @@ import { useState } from "react";
 import { db, auth, firebaseRef } from "../config";
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import  MessageCard from './MessageCard'
+import { computeHeadingLevel } from "@testing-library/dom";
 
 const ChatRoom = ({ currentRoom }) => {
     const [message, setMessage] = useState("");
@@ -57,3 +58,4 @@ const ChatRoom = ({ currentRoom }) => {
 };
 
 export default ChatRoom
+
